@@ -84,6 +84,6 @@ Your branches should be named in the following manner:
 
 After pushing your branch, visit https://github.com/immutable/imx-examples and use the GitHub UI to create a pull request.
 
-### Merge your Pull Request
+### Pull Request Review
 
-The maintainers of this repo will approve and merge your pull request.
+The maintainers of this repo will attempt to review your pull request when they are available. 
