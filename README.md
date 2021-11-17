@@ -10,6 +10,9 @@
 
 # Immutable X Examples
 
+| WARNING :warning: : these examples can only be used on Ropsten |
+| --- |
+
 ## Introduction
 
 This repository contains example scripts for interacting with Immutable X APIs. 
