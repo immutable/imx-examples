@@ -1,7 +1,7 @@
 import { AlchemyProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { ImmutableOffchainMintParams, ImmutableXClient } from '@imtbl/imx-sdk';
+import { ImmutableXClient, ImmutableMethodParams } from '@imtbl/imx-sdk';
 import { parse } from 'ts-command-line-args';
 
 import env from './config/client';
@@ -77,7 +77,7 @@ const waitForTransaction = async (promise: Promise<string>) => {
     blueprint: 'onchain-metadata',
   }));
 
-  const payload: ImmutableOffchainMintParams = [
+  const payload: ImmutableMethodParams.ImmutableOffchainMintV2ParamsTS = [
     {
       contractAddress: env.tokenAddress, // NOTE: a mintable token contract is not the same as regular erc token contract
       users: [
@@ -89,7 +89,7 @@ const waitForTransaction = async (promise: Promise<string>) => {
     },
   ];
 
-  const result = await minter.mint(payload);
+  const result = await minter.mintV2(payload);
   console.log(result);
 })().catch(e => {
   log.error(component, e);
