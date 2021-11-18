@@ -10,7 +10,8 @@
 
 # Immutable X Examples
 
-| WARNING :warning: : these examples can only be used on Ropsten |
+
+| <span style="color: rgb(234, 153, 40);"> &#9432; : These examples target Ropsten environment.</span> |
 | --- |
 
 ## Introduction
