@@ -10,17 +10,14 @@
 
 # Immutable X Examples
 
-| WARNING :warning: : these examples can only be used on Ropsten |
-| --- |
-
 ## Introduction
 
 This repository contains example scripts for interacting with Immutable X APIs. 
 
 ## Docs
 
-* [Onboarding (Self Service)](docs/onboarding.md)
-* [Administration](docs/administration.md)
+* [Onboarding (Self Service) (Ropsten Only)](docs/onboarding.md) 
+* [Administration (Ropsten Only)](docs/administration.md)
 * [Minting Assets](docs/minting-assets.md)
 * [Public Interfaces](docs/public-interfaces.md)
 

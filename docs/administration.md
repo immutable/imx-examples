@@ -1,4 +1,4 @@
-# Administration
+# Administration (Ropsten Only)
 
 Updates to a project or collection require authorisation by the project owner using the timestamp signature mechanism.
 

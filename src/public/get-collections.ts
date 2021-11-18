@@ -1,8 +1,5 @@
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import {
-  ImmutableGetCollectionsParams,
-  ImmutableXClient,
-} from '@imtbl/imx-sdk';
+import { ImmutableMethodParams, ImmutableXClient } from '@imtbl/imx-sdk';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
@@ -24,7 +21,7 @@ const component = '[IMX-GET-COLLECTIONS]';
   const params = {
     order_by: 'name',
     direction: 'desc',
-  } as ImmutableGetCollectionsParams;
+  } as ImmutableMethodParams.ImmutableGetCollectionsParamsTS;
 
   let collections;
   try {
