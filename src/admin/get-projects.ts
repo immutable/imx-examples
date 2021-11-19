@@ -28,6 +28,7 @@ const component = '[IMX-GET-PROJECTS]';
   try {
     projects = await user.getProjects();
   } catch (error) {
+    console.log(error);
     throw new Error(JSON.stringify(error, null, 2));
   }
 

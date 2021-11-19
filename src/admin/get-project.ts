@@ -14,15 +14,15 @@ const log: ImLogger = new WinstonLogger(loggerConfig);
 const component = '[IMX-GET-PROJECT]';
 
 interface GetProjectArguments {
-  project_id: number;
+  projectId: number;
 }
 
 (async (): Promise<void> => {
   const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { project_id } = parse<GetProjectArguments>({
-    project_id: {
+  const { projectId } = parse<GetProjectArguments>({
+    projectId: {
       type: Number,
       alias: 'i',
       description: 'The ID of the project',
@@ -40,8 +40,9 @@ interface GetProjectArguments {
 
   let project;
   try {
-    project = await user.getProject({ project_id });
+    project = await user.getProject({ projectId });
   } catch (error) {
+    console.log(error)
     throw new Error(JSON.stringify(error, null, 2));
   }
 
