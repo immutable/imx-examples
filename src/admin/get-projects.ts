@@ -20,6 +20,7 @@ const component = '[IMX-GET-PROJECTS]';
   const user = await ImmutableXClient.build({
     ...env.client,
     signer,
+    enableDebug: true,
   });
 
   log.info(component, 'Fetching projects...');

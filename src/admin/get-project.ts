@@ -34,6 +34,7 @@ interface GetProjectArguments {
   const user = await ImmutableXClient.build({
     ...env.client,
     signer,
+    enableDebug: true,
   });
 
   log.info(component, 'Fetching project...');

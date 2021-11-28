@@ -36,6 +36,7 @@ const component = '[IMX-UPDATE-COLLECTION-METADATA-SCHEMA]';
   const user = await ImmutableXClient.build({
     ...env.client,
     signer,
+    enableDebug: true,
   });
 
   log.info(
@@ -49,6 +50,8 @@ const component = '[IMX-UPDATE-COLLECTION-METADATA-SCHEMA]';
    */
   const params: UpdateMetadataSchemaByNameParams = {
     name: 'UPDATED_NAME',
+    // type: MetadataTypes.Text,
+    // filterable: true,
   };
 
   const message = await user.updateMetadataSchemaByName(
@@ -57,7 +60,11 @@ const component = '[IMX-UPDATE-COLLECTION-METADATA-SCHEMA]';
     params,
   );
 
-  log.info(component, `Update metadata schema for ${name}`);
+  log.info(
+    component,
+    `Update metadata schema for ${name}. Run 
+    'npm run admin:get-metadata-schema' to see updated schema`,
+  );
   console.log(JSON.stringify(message, null, 2));
 })().catch(e => {
   log.error(component, e);

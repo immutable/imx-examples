@@ -11,6 +11,7 @@ const component = '[IMX-GET-COLLECTIONS]';
 (async (): Promise<void> => {
   const user = await ImmutableXClient.build({
     publicApiUrl: env.client.publicApiUrl,
+    enableDebug: true,
   });
 
   log.info(component, 'Fetching collections...');
