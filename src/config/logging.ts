@@ -46,7 +46,7 @@ function getHandlers(): Handler[] {
 }
 
 export const loggerConfig: ImLoggerConfig = {
-  appName: 'wallet',
+  appName: 'examples',
   appVersion: 'v1.0.0',
   level: validateString(getEnv('LOG_LEVEL'), LOG_LEVELS),
   componentFilter: getEnv('LOG_COMPONENT_FILTER', '')

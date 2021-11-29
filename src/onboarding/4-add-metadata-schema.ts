@@ -28,6 +28,7 @@ const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
   const user = await ImmutableXClient.build({
     ...env.client,
     signer,
+    enableDebug: true,
   });
 
   log.info(

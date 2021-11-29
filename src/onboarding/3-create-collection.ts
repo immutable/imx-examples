@@ -26,6 +26,7 @@ const component = '[IMX-CREATE-COLLECTION]';
   const user = await ImmutableXClient.build({
     ...env.client,
     signer,
+    enableDebug: true,
   });
 
   log.info(component, 'Creating collection...', collectionContractAddress);

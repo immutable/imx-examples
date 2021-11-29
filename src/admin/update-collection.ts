@@ -24,6 +24,7 @@ const component = '[IMX-UPDATE-COLLECTION]';
   const user = await ImmutableXClient.build({
     ...env.client,
     signer,
+    enableDebug: true,
   });
 
   log.info(component, 'Updating collection...', collectionContractAddress);
