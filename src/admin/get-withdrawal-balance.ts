@@ -1,7 +1,13 @@
 import { AlchemyProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { CreateProjectParams, ImmutableXClient } from '@imtbl/imx-sdk';
+import {
+  ERC721TokenCodec,
+  ERC721TokenType,
+  ImmutableXClient,
+  ImmutableXWallet,
+  valueOrThrow,
+} from '@imtbl/imx-sdk';
 import { requireEnvironmentVariable } from 'libs/utils';
 
 import env from '../config/client';
@@ -10,37 +16,40 @@ import { loggerConfig } from '../config/logging';
 const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
-const component = '[IMX-CREATE-PROJECT]';
+const component = '[IMX-WITHDRAWAL-BALANCE]';
 
 (async (): Promise<void> => {
   const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
 
   const signer = new Wallet(privateKey).connect(provider);
-
+  const wallet = new ImmutableXWallet({
+    publicApiUrl: env.client.publicApiUrl,
+    signer,
+  });
   const user = await ImmutableXClient.build({
     ...env.client,
     signer,
   });
 
-  log.info(component, 'Creating project...');
+  const token = valueOrThrow(
+    ERC721TokenCodec.decode({
+      type: ERC721TokenType.ERC721,
+      data: {
+        tokenId: env.tokenId,
+        tokenAddress: env.tokenAddress,
+      },
+    }),
+  );
 
-  /**
-   * Edit your values here
-   */
-  const params: CreateProjectParams = {
-    name: 'ENTER_PROJECT_NAME_HERE-2',
-    company_name: 'ENTER_COMPANY_NAME_HERE',
-    contact_email: 'contactemail@example.com',
-  };
+  const balance = await wallet.getWithdrawalBalance(
+    env.client.starkContractAddress,
+    user.starkPublicKey,
+    token,
+  );
 
-  let project;
-  try {
-    project = await user.createProject(params);
-  } catch (error) {
-    throw new Error(JSON.stringify(error, null, 2));
-  }
-
-  log.info(component, `Created project with ID: ${project.id}`);
+  console.log(
+    `Current withdrawal balance of token ${token.data.tokenAddress} with token id ${token.data.tokenId} is ${balance}`,
+  );
 })().catch(e => {
   log.error(component, e);
   process.exit(1);

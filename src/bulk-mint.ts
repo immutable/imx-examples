@@ -12,7 +12,7 @@ interface BulkMintScriptArgs {
   number: number;
 }
 
-const provider = new AlchemyProvider('ropsten', env.alchemyApiKey);
+const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 const component = 'imx-bulk-mint-script';
 

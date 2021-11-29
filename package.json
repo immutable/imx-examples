@@ -26,6 +26,7 @@
     "onboarding:create-collection": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/3-create-collection.ts",
     "onboarding:add-metadata-schema": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/4-add-metadata-schema.ts",
     "admin:get-projects": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/admin/get-projects.ts",
+    "admin:get-withdrawal-balance": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/admin/get-withdrawal-balance.ts",
     "admin:get-project": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/admin/get-project.ts",
     "admin:update-collection": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/admin/update-collection.ts",
     "admin:update-metadata-schema-by-name": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/admin/update-metadata-by-name.ts",

@@ -2,6 +2,7 @@ import { getEnv } from '../libs/utils';
 
 export default {
   alchemyApiKey: getEnv('ALCHEMY_API_KEY'),
+  ethNetwork: getEnv('ETH_NETWORK'),
   client: {
     publicApiUrl: getEnv('PUBLIC_API_URL'),
     starkContractAddress: getEnv('STARK_CONTRACT_ADDRESS'),
