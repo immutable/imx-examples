@@ -21,7 +21,6 @@ const component = '[IMX-CREATE-COLLECTION]';
 
   const wallet = new Wallet(privateKey);
   const signer = wallet.connect(provider);
-  const ownerPublicKey = wallet.publicKey;
 
   const user = await ImmutableXClient.build({
     ...env.client,
@@ -38,7 +37,7 @@ const component = '[IMX-CREATE-COLLECTION]';
     name: 'ENTER_COLLECTION_NAME',
     // description: 'ENTER_COLLECTION_DESCRIPTION (OPTIONAL)',
     contract_address: collectionContractAddress,
-    owner_public_key: ownerPublicKey,
+    owner_public_key: '', // leave empty
     // icon_url: '',
     // metadata_api_url: '',
     // collection_image_url: '',
