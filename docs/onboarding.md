@@ -14,7 +14,7 @@ Copy environment file
 cp .env.example .env
 ```
 
-Set the onboarding private key in `.env`
+Set the onboarding private key in `.env`. Your private key will be used to create a signed payload and will not be sent to our backend services.
 
 ```sh
 OWNER_ACCOUNT_PRIVATE_KEY=YOUR_PRIVATE_KEY
