@@ -1,4 +1,4 @@
-# Onboarding (Self-service) (Ropsten Only)
+# Onboarding (Self-service)
 
 To begin, clone this repository:
 
