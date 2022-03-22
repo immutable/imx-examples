@@ -58,7 +58,6 @@ npm run onboarding:create-project
 
 On completion, the script will log the ID of the created project. Save this ID for use in the next step.
 
-
 ## 3. Add a collection
 
 A collection refers to a smart contract you have deployed. Minted assets belong to a collection. In order to mint assets on L2
@@ -66,11 +65,11 @@ you must first register your collection (smart contract) with Immutable X.
 
 Add the collection contract address to the environment variable `COLLECTION_CONTRACT_ADDRESS`.
 
-Update the values in file `3-create-collection.ts` with the values of the collection you want to create.
+Set `COLLECTION_PROJECT_ID` to the project ID you created with `create-project` step
 
 Once updated, run the following script to create your collection:
 
-_Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY` and `COLLECTION_CONTRACT_ADDRESS` to be set._
+_Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY`, `COLLECTION_PROJECT_ID` and `COLLECTION_CONTRACT_ADDRESS` to be set._
 
 ```sh
 npm run onboarding:create-collection
