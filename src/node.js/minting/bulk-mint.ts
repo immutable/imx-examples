@@ -4,8 +4,8 @@ import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import { ImmutableXClient, ImmutableMethodParams } from '@imtbl/imx-sdk';
 import { parse } from 'ts-command-line-args';
 
-import env from './config/client';
-import { loggerConfig } from './config/logging';
+import env from '../../config/client';
+import { loggerConfig } from '../../config/logging';
 
 interface BulkMintScriptArgs {
   wallet: string;
