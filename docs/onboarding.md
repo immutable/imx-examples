@@ -74,6 +74,7 @@ _Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY`, `COLLECTION_PROJECT
 ```sh
 npm run onboarding:create-collection
 ```
+If you see a `replacement transaction underpriced` error message when trying to run `create-collection` please try again in 5 minutes.
 
 ## 4. Add metadata schema to your collection
 
