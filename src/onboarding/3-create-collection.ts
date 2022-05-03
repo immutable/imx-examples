@@ -35,13 +35,13 @@ const component = '[IMX-CREATE-COLLECTION]';
    * Edit your values here
    */
   const params: CreateCollectionParams = {
-    name: 'ENTER_COLLECTION_NAME',
-    // description: 'ENTER_COLLECTION_DESCRIPTION (OPTIONAL)',
+    name: 'Kittens',
+    description: 'Test kitten collection',
     contract_address: collectionContractAddress,
     owner_public_key: ownerPublicKey,
-    // icon_url: '',
-    // metadata_api_url: '',
-    // collection_image_url: '',
+    icon_url: 'https://gateway.pinata.cloud/ipfs/QmUSDpc4tLChXR8vEACt8ZAC5c5k12UjgQ1RAFJirhEDxD',
+    metadata_api_url: 'https://gateway.pinata.cloud/ipfs/QmV2iseWdTwRzeF5cBArm5o9purYngdhpPrdLZjH4cuP4y',
+    collection_image_url: 'https://gateway.pinata.cloud/ipfs/QmPfGgwaNHdhJMoNhu29MHJn6iFFLYTUG62pMBKjbMDFW4',
     project_id: parseInt(projectId, 10),
   };
 
