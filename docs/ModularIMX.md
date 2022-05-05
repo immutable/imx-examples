@@ -1,19 +1,6 @@
-# Immutable Integration Scripts
+# Immutable Integration Modular Scripts
 
 This repository is a collection of CLI scripts to execute common functions on the IMX platform.
-
-## Prerequisites
-
-The scripts in this repository are written in Typescript, and require a Node JS runtime. To get started run
-the following commands in your terminal in Mac OS.
-
-1. Install Homebrew - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-2. Install Node - brew install node
-
-## Getting Started
-
-With the pre-requisite software installed, execute the command `npm install` to install the required libraries to
-run the code in this repository. Also make sure to rename the .env.example file to .env and populate the different variables.
 
 ## Scripts
 
