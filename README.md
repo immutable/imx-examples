@@ -17,7 +17,7 @@ This repository contains example scripts for interacting with Immutable X APIs.
 ## Docs
 
 * [Onboarding (Self Service)](docs/onboarding.md) 
-* [Modular example code](docs/modularIMX.md)
+* [Modular example code](docs/ModularIMX.md)
 * [Administration](docs/administration.md)
 * [Minting Assets](docs/minting-assets.md)
 * [Public Interfaces](docs/public-interfaces.md)
