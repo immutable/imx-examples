@@ -2,6 +2,7 @@
 
 import yargs from 'yargs';
 import { ImmutableXClient } from '@imtbl/imx-sdk';
+import { ethers } from 'ethers';
 
 /**
  * Returns the ImmutableXClient which points to the UAT environment.
@@ -23,6 +24,7 @@ async function getUserAssets(address: string): Promise<void> {
   for (const asset of response.result) {
     console.log(`Asset details: TokenAddress: ${asset.token_address}, ID: ${asset.token_id}, Name: ${asset.name}`);
   }
+
 }
 
 async function main(walletAddress: string): Promise<void> {
