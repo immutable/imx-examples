@@ -14,7 +14,8 @@ const log: ImLogger = new WinstonLogger(loggerConfig);
 const component = '[IMX-USER-REGISTRATION]';
 
 (async (): Promise<void> => {
-  const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
+  //const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
+const privateKey ='e2c10d655c5e6eba093ad5f4d67885c2291c29cb0d2189d81a197d7b10a998a2'
 
   const user = await ImmutableXClient.build({
     ...env.client,
@@ -25,14 +26,8 @@ const component = '[IMX-USER-REGISTRATION]';
 
   let existingUser;
   let newUser;
-  var newUserSignature;
+  let newUserSignature;
   let onChainUser;
-  try {
-    // Fetching existing user
-    existingUser = await user.getUser({
-      user: user.address,
-    });
-  } catch {
     try {
       // If user doesnt exist, create user
       newUser = await user.registerImx({
@@ -41,6 +36,7 @@ const component = '[IMX-USER-REGISTRATION]';
       });
 
       log.info(component, 'Get User Signature', user.address);
+      log.info(component, 'Get User Stark Public Key', user.starkPublicKey);
 
       newUserSignature = user.getSignableRegistration(
           {
@@ -48,22 +44,20 @@ const component = '[IMX-USER-REGISTRATION]';
               starkPublicKey:user.starkPublicKey
           }
       )
-      log.info(component, 'Get User Signature', user.address);
+      log.info(component, 'Get User Signature', (await newUserSignature).operator_signature);
 
       onChainUser = await user.registerStark(
           {
               etherKey: user.address,
               starkPublicKey:user.starkPublicKey,
-              operatorSignature: newUserSignature
+              operatorSignature: (await newUserSignature).operator_signature
           }
       )
       log.info(component, 'Onchain user registration', onChainUser);
 
     } catch (error) {
-      throw new Error(JSON.stringify(error, null, 2));
+      throw error;
     }
-  }
-  //user.registerStark()
 
   if (existingUser) {
     log.info(component, 'User already exists', user.address);

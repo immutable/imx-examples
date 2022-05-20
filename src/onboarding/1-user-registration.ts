@@ -3,6 +3,7 @@ import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import { ImmutableXClient } from '@imtbl/imx-sdk';
 import { requireEnvironmentVariable } from 'libs/utils';
+import client from '../config/client';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
@@ -40,6 +41,7 @@ const component = '[IMX-USER-REGISTRATION]';
       throw new Error(JSON.stringify(error, null, 2));
     }
   }
+  //user.registerStark()
 
   if (existingUser) {
     log.info(component, 'User already exists', user.address);
