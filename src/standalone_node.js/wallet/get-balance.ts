@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import env from '../../config/client';
 import yargs from 'yargs';
 import { ethers, Wallet } from 'ethers';
 import { ImmutableXClient } from '@imtbl/imx-sdk';
@@ -16,7 +17,7 @@ import { ImmutableXClient } from '@imtbl/imx-sdk';
  * Returns IMX UAT api base url.
  */
 function getApiAddress(): string {
-  return 'https://api.x.immutable.com/v1';
+  return env.client.publicApiUrl;
 }
 
 /**

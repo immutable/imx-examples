@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import env from '../../config/client';
 import yargs from 'yargs';
 import axios from 'axios';
 
@@ -18,7 +19,7 @@ const argv = yargs(process.argv.slice(2))
   .parseSync();
 
 async function main(walletAddress: string) {
-  const url = `https://api.ropsten.x.immutable.com/v1/users/${walletAddress}`;
+  const url = env.client.publicApiUrl + `/users/${walletAddress}`;
   const response = await api(url);
   console.log(response);
 };

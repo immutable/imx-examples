@@ -8,26 +8,26 @@ The scripts can be found in the src/node.js/wallet folder, and are broken down b
 #### Retrieve a users ETH balance
 
 ```
-npx ts-node ./src/node.js/wallet/get-balance.ts -a <WALLET_ADDRESS>
+npm run wallet:get-balance -- --a <WALLET_ADDRESS>
 ```
 
 #### Retrieve a users inventory
 
 ```
-npx ts-node ./src/node.js/wallet/get-assets.ts -a <WALLET_ADDRESS>
+npm run wallet:get-assets -- --a <WALLET_ADDRESS>
 ```
 
 ### Retrieve a Starkkey associated to a user
 
 
 ```
-npx ts-node ./src/node.js/wallet/get-starkkey.ts -a <WALLET_ADDRESS>
+npm run wallet:get-starkkey -- --a <WALLET_ADDRESS>
 ```
 
 ### Check whether a wallet is registered on IMX
 
 ```
-npx ts-node ./src/node.js/wallet/user.ts -a <WALLET_ADDRESS>
+npm run wallet:check-user -- --a <WALLET_ADDRESS>
 ```
 
 ### Deposits

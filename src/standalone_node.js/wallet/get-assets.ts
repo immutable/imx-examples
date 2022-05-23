@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
+import env from '../../config/client';
 import yargs from 'yargs';
 import { ImmutableXClient } from '@imtbl/imx-sdk';
-import { ethers } from 'ethers';
 
 /**
  * Returns the ImmutableXClient which points to the UAT environment.
  * @returns Promise<ImmutableXClient>
  */
  async function getClient(): Promise<ImmutableXClient> {
-  return await ImmutableXClient.build({ publicApiUrl: 'https://api.ropsten.x.immutable.com/v1' });
+  return await ImmutableXClient.build({ 
+    ...env.client 
+  });
 }
 
 /**
@@ -24,7 +26,6 @@ async function getUserAssets(address: string): Promise<void> {
   for (const asset of response.result) {
     console.log(`Asset details: TokenAddress: ${asset.token_address}, ID: ${asset.token_id}, Name: ${asset.name}`);
   }
-
 }
 
 async function main(walletAddress: string): Promise<void> {
