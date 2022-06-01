@@ -86,5 +86,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "overrides": {
+  "merkle-particia-tree": {
+    "async": "^2.6.4"
   }
+}
 }
