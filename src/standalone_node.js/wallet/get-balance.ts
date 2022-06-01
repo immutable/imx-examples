@@ -47,7 +47,7 @@ async function getUserBalance(address: string): Promise<void> {
   const response = await client.listBalances({ user: address });
   console.log(`User IMX list balances`);
   for (const bal of response.result) {
-    console.log(`Balance: ${bal.balance}`);
+    console.log(`Balance: ${bal.symbol} ${bal.balance}`);
     console.log(`Withdrawal being prepared: ${bal.preparing_withdrawal}`);
     console.log(`Waithdrawal ready: ${bal.withdrawable}`);
   }
