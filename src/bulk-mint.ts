@@ -10,6 +10,7 @@ import { loggerConfig } from './config/logging';
 interface BulkMintScriptArgs {
   wallet: string;
   number: number;
+  tokenId: number;
 }
 
 const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
@@ -33,7 +34,7 @@ const waitForTransaction = async (promise: Promise<string>) => {
 
 (async (): Promise<void> => {
   const BULK_MINT_MAX = env.bulkMintMax;
-  const { wallet, number } = parse<BulkMintScriptArgs>({
+  const { wallet, number, tokenId } = parse<BulkMintScriptArgs>({
     wallet: {
       type: String,
       alias: 'w',
@@ -44,11 +45,16 @@ const waitForTransaction = async (promise: Promise<string>) => {
       alias: 'n',
       description: `Number of NFTS to mint. Maximum: ${BULK_MINT_MAX}`,
     },
+    tokenId: {
+      type: Number,
+      alias: 't',
+      description: '',
+    }
   });
   if (number >= Number(BULK_MINT_MAX))
     throw new Error(`tried to mint too many tokens. Maximum ${BULK_MINT_MAX}`);
 
-  const tokenId = parseInt(env.tokenId, 10);
+  // const tokenId = parseInt(env.tokenId, 10);
   console.log('tokenId');
   console.log(tokenId);
 
