@@ -20,8 +20,8 @@ const waitForTransaction = async (promise: Promise<string>) => {
   const txId = await promise;
   log.info(component, 'Waiting for transaction', {
     txId,
-    etherscanLink: `https://ropsten.etherscan.io/tx/${txId}`,
-    alchemyLink: `https://dashboard.alchemyapi.io/mempool/eth-ropsten/tx/${txId}`,
+    etherscanLink: `https://goerli.etherscan.io/tx/${txId}`,
+    alchemyLink: `https://dashboard.alchemyapi.io/mempool/eth-goerli/tx/${txId}`,
   });
   const receipt = await provider.waitForTransaction(txId);
   if (receipt.status === 0) {
