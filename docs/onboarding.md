@@ -63,6 +63,8 @@ On completion, the script will log the ID of the created project. Save this ID f
 A collection refers to a smart contract you have deployed. Minted assets belong to a collection. In order to mint assets on L2
 you must first register your collection (smart contract) with Immutable X.
 
+Update the value `name` in file `3-create-collection.ts` with the  _The name of the collection_  you want to create.
+
 Add the collection contract address to the environment variable `COLLECTION_CONTRACT_ADDRESS`.
 
 Set `COLLECTION_PROJECT_ID` to the project ID you created with `create-project` step
