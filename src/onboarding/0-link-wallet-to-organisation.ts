@@ -71,6 +71,7 @@ enum TokenResponseError {
   }
 
   let intervalId: NodeJS.Timer;
+  let pollingIntervalModifier = 0;
   let auth0AccessToken = '';
 
   const fetchAccessToken = async () => {
@@ -122,6 +123,17 @@ enum TokenResponseError {
             'process has exited due to token expiring please start again',
           );
           process.exit(1);
+          break;
+
+        // Polling too fast error https://auth0.com/docs/quickstart/native/device#slow-down
+        case TokenResponseError.SlowDown:
+          // Add one second to the polling rate to avoid this error repeating
+          pollingIntervalModifier += 1;
+          clearInterval(intervalId);
+          intervalId = setInterval(
+            fetchAccessToken,
+            (deviceCodeResponse.interval + pollingIntervalModifier) * 1000,
+          );
           break;
 
         default: {
