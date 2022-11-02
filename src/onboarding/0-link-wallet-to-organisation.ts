@@ -91,7 +91,7 @@ enum TokenResponseError {
       // Becuase the AuthorizationPending prints out a '.' with no newline when waiting for user interaction
       console.log('');
       auth0AccessToken = res.data.access_token;
-      log.info(component, 'Authentication complete!');
+      log.info(component, 'Authorization complete!');
       // Printing out a partial view of the access token for now as we are not using it yet
       log.info(
         component,
