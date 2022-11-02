@@ -21,6 +21,7 @@
     "typecheck": "tsc --noEmit",
     "bulk-mint": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/bulk-mint.ts",
     "yalc:link": "yalc link @imtbl/imx-sdk",
+    "onboarding:link-wallet-to-organisation": "npx ts-node -r dotenv/config ./src/onboarding/0-link-wallet-to-organisation.ts",
     "onboarding:user-registration": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/1-user-registration.ts",
     "onboarding:create-project": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/2-create-project.ts",
     "onboarding:create-collection": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/3-create-collection.ts",

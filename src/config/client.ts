@@ -19,4 +19,8 @@ export default {
   ownerAccountPrivateKey: getEnv('OWNER_ACCOUNT_PRIVATE_KEY'),
   collectionContractAddress: getEnv('COLLECTION_CONTRACT_ADDRESS'),
   collectionProjectId: getEnv('COLLECTION_PROJECT_ID'),
+  // Auth0
+  auth0TenantUrl: getEnv('AUTH0_TENANT_URL'),
+  auth0ClientId: getEnv('AUTH0_CLIENT_ID'),
+  auth0Audience: getEnv('AUTH0_AUDIENCE'),
 };
