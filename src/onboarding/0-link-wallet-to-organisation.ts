@@ -1,4 +1,7 @@
-// Built using these docs as a reference: https://auth0.com/docs/quickstart/native/device
+// Auth0 portion built using these docs as a reference: https://auth0.com/docs/quickstart/native/device
+// import { AlchemyProvider } from '@ethersproject/providers';
+// import { Wallet } from '@ethersproject/wallet';
+// import { signRaw } from '@imtbl/core-sdk';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import open from 'open';
@@ -6,6 +9,7 @@ import open from 'open';
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
 
+// const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 const component = '[IMX-LINK-WALLET-TO-ORGANISATION]';
 
@@ -36,6 +40,16 @@ enum TokenResponseError {
   ExpiredToken = 'expired_token',
   AccessDenied = 'access_denied',
 }
+
+// * Note: This will be commented back in when required.
+// const generateIMXSignature = async (): Promise<string> => {
+//   const signer = new Wallet(env.privateKey1).connect(provider);
+
+//   const timestamp = Math.floor(Date.now() / 1000).toString();
+//   const signature = await signRaw(timestamp, signer); // IMX-Signature
+
+//   return signature;
+// };
 
 (async () => {
   const deviceCodeRequestConfig: AxiosRequestConfig = {
@@ -104,6 +118,8 @@ enum TokenResponseError {
           auth0AccessToken.length,
         )}`,
       );
+      //  * Note: This will be commented back in when required. Both IMXSignature and auth0AccessToken are needed for new account service.
+      // const IMXSignature = await generateIMXSignature();
       clearInterval(intervalId);
     } catch (error: any) {
       // Polling while the user is taking action will give expected errors https://auth0.com/docs/quickstart/native/device#token-responses
