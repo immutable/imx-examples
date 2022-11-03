@@ -26,6 +26,24 @@ Install dependencies
 npm install
 ```
 
+## 0. Link wallet to organization
+
+Attaches wallet to an organization. This is to later view and manage your projects from the developer dashboard.
+
+Run the following script
+
+_Requires environment variables to be set._
+
+- _`AUTH0_TENANT_URL`_
+- _`AUTH0_CLIENT_ID`_
+- _`AUTH0_AUDIENCE`_
+
+```sh
+npm run onboarding:link-wallet-to-organisation
+```
+
+This will open up a browser window where you can authorize your device and gain an access token. This will be used along side an IMX signature to authorize against the IMX Developer Dashboard.
+
 ## 1. Register as a user with Immutable X
 
 We provide an authentication service to protect your administrative level assets from being accessed or updated by someone else. This is done using a simliar technique as described [here](https://link.medium.com/CVTcj7YfQkb).
@@ -74,6 +92,7 @@ _Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY`, `COLLECTION_PROJECT
 ```sh
 npm run onboarding:create-collection
 ```
+
 If you see a `replacement transaction underpriced` error message when trying to run `create-collection` please try again in 5 minutes.
 
 ## 4. Add metadata schema to your collection
