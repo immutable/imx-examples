@@ -60,7 +60,7 @@ enum TokenResponseError {
 
     log.info(
       component,
-      `Opening ${res.data.verification_uri_complete} in the default browser to complete authentication.`,
+      `Your authorization code: ${res.data.user_code}. Opening ${res.data.verification_uri_complete} in the default browser to complete authentication.`,
     );
 
     // platform agnostic way to open a url in the default browser
