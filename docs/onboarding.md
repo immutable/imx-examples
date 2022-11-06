@@ -30,7 +30,7 @@ npm install
 
 Attaches wallet to an organization. This is to later view and manage your projects from the developer dashboard.
 
-Run the following script
+Run the following script:
 
 _Requires environment variables to be set._
 
@@ -42,7 +42,7 @@ _Requires environment variables to be set._
 npm run onboarding:link-wallet-to-organisation
 ```
 
-This will open up a browser window where you can authorize your device and gain an access token. This will be used along side an IMX signature to authorize against the IMX Developer Dashboard.
+This will open up a browser window where you can authorize your device and gain an access token. This will be used alongside an IMX signature to authorize against the IMX Developer Dashboard.
 
 ## 1. Register as a user with Immutable X
 
