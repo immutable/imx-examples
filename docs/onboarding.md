@@ -28,7 +28,7 @@ npm install
 
 ## 0. Register email with the Immutable Developer Hub
 
-Register your email address on the [Immutable Developer Hub](https://hub.immutable.com) to get access to customised documentation and the ability to create projects on Immutable.
+Register your email address on the [Immutable Developer Hub](https://hub.immutable.com) to get access to customised documentation on the hub, and the ability to create projects on Immutable via the [Public API](https://docs.x.immutable.com/reference#/operations/createProject) or the CLI in this repo.
 
 Projects are required to create collections which subsequently allow minting assets on Immutable (L2).
 
