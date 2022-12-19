@@ -1,53 +1,40 @@
-import { AlchemyProvider } from '@ethersproject/providers';
-import { Wallet } from '@ethersproject/wallet';
+import { createIMXClient, getEthWalletAndSigner, env } from '../config/client';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { CreateCollectionParams, ImmutableXClient } from '@imtbl/imx-sdk';
-import { requireEnvironmentVariable } from 'libs/utils';
+import { CreateCollectionRequest } from '@imtbl/core-sdk';
 
-import env from '../config/client';
 import { loggerConfig } from '../config/logging';
 
-const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
 const component = '[IMX-CREATE-COLLECTION]';
 
+// Initialize ImmutableX client
+let client = createIMXClient();
+
 (async (): Promise<void> => {
-  const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
-  const collectionContractAddress = requireEnvironmentVariable(
-    'COLLECTION_CONTRACT_ADDRESS',
-  );
-  const projectId = requireEnvironmentVariable('COLLECTION_PROJECT_ID');
+  // Get Ethereum wallet and signer
+  const { wallet, ethSigner } = getEthWalletAndSigner();
 
-  const wallet = new Wallet(privateKey);
-  const signer = wallet.connect(provider);
-  const ownerPublicKey = wallet.publicKey;
-
-  const user = await ImmutableXClient.build({
-    ...env.client,
-    signer,
-    enableDebug: true,
-  });
-
-  log.info(component, 'Creating collection...', collectionContractAddress);
+  log.info(component, 'Creating collection...', env.collectionContractAddress);
 
   /**
    * Edit your values here
    */
-  const params: CreateCollectionParams = {
+  const params: CreateCollectionRequest = {
     name: 'ENTER_COLLECTION_NAME',
     // description: 'ENTER_COLLECTION_DESCRIPTION (OPTIONAL)',
-    contract_address: collectionContractAddress,
-    owner_public_key: ownerPublicKey,
+    contract_address: env.collectionContractAddress,
+    owner_public_key: wallet.publicKey,
     // icon_url: '',
     // metadata_api_url: '',
     // collection_image_url: '',
-    project_id: parseInt(projectId, 10),
+    project_id: parseInt(env.collectionProjectId, 10),
   };
 
   let collection;
+
   try {
-    collection = await user.createCollection(params);
+    collection = await client.createCollection(ethSigner, params);
   } catch (error) {
     throw new Error(JSON.stringify(error, null, 2));
   }

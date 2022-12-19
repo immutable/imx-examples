@@ -5,7 +5,7 @@ import { ImmutableXClient } from '@imtbl/imx-sdk';
 import { requireEnvironmentVariable } from 'libs/utils';
 import { parse } from 'ts-command-line-args';
 
-import env from '../config/client';
+import { env } from '../config/client';
 import { loggerConfig } from '../config/logging';
 
 const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
