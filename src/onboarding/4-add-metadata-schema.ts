@@ -1,18 +1,22 @@
-import { createIMXClient, getEthWalletAndSigner, env } from '../config/client';
+import {
+  AddMetadataSchemaToCollectionRequest,
+  MetadataSchemaRequestTypeEnum,
+} from '@imtbl/core-sdk';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
+
+import { createIMXClient, env, getEthWalletAndSigner } from '../config/client';
 import { loggerConfig } from '../config/logging';
-import { AddMetadataSchemaToCollectionRequest, MetadataSchemaRequestTypeEnum } from '@imtbl/core-sdk';
 
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
 const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
 
 // Initialize ImmutableX client
-let client = createIMXClient();
+const client = createIMXClient();
 
 (async (): Promise<void> => {
   // Get Ethereum wallet and signer
-  const { wallet, ethSigner } = getEthWalletAndSigner();
+  const { ethSigner } = getEthWalletAndSigner();
 
   log.info(
     component,
@@ -35,7 +39,11 @@ let client = createIMXClient();
     ],
   };
 
-  const collection = await client.addMetadataSchemaToCollection(ethSigner, env.collectionContractAddress, request)
+  const collection = await client.addMetadataSchemaToCollection(
+    ethSigner,
+    env.collectionContractAddress,
+    request,
+  );
 
   log.info(
     component,

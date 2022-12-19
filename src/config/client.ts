@@ -1,11 +1,8 @@
-import { ImmutableX, Config } from '@imtbl/core-sdk';
-import { getEnv } from '../libs/utils';
-import { loggerConfig } from '../config/logging';
-import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { Wallet } from '@ethersproject/wallet';
 import { AlchemyProvider } from '@ethersproject/providers';
+import { Wallet } from '@ethersproject/wallet';
+import { Config, ImmutableX } from '@imtbl/core-sdk';
 
-const log: ImLogger = new WinstonLogger(loggerConfig);
+import { getEnv } from '../libs/utils';
 
 export const env = {
   alchemyApiKey: getEnv('ALCHEMY_API_KEY'),
@@ -28,7 +25,7 @@ export const env = {
   collectionProjectId: getEnv('COLLECTION_PROJECT_ID'),
   projectName: getEnv('PROJECT_NAME'),
   companyName: getEnv('COMPANY_NAME'),
-  contactEmail: getEnv('CONTACT_EMAIL')
+  contactEmail: getEnv('CONTACT_EMAIL'),
 };
 
 function ensureNetworkSet() {
@@ -41,18 +38,17 @@ export function createIMXClient() {
   ensureNetworkSet();
 
   if (env.ethNetwork === 'mainnet') {
-    return new ImmutableX(Config.PRODUCTION)
-  } else {
-    return new ImmutableX(Config.SANDBOX)
+    return new ImmutableX(Config.PRODUCTION);
   }
+  return new ImmutableX(Config.SANDBOX);
 }
 
 export function getEthWalletAndSigner() {
   ensureNetworkSet();
 
   const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
-  const wallet = new Wallet(env.ownerAccountPrivateKey)
+  const wallet = new Wallet(env.ownerAccountPrivateKey);
   const ethSigner = wallet.connect(provider);
 
-  return { wallet, ethSigner }
+  return { wallet, ethSigner };
 }

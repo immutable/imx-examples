@@ -1,7 +1,7 @@
-import { createIMXClient, getEthWalletAndSigner, env } from '../config/client';
-import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import { CreateCollectionRequest } from '@imtbl/core-sdk';
+import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 
+import { createIMXClient, env, getEthWalletAndSigner } from '../config/client';
 import { loggerConfig } from '../config/logging';
 
 const log: ImLogger = new WinstonLogger(loggerConfig);
@@ -9,7 +9,7 @@ const log: ImLogger = new WinstonLogger(loggerConfig);
 const component = '[IMX-CREATE-COLLECTION]';
 
 // Initialize ImmutableX client
-let client = createIMXClient();
+const client = createIMXClient();
 
 (async (): Promise<void> => {
   // Get Ethereum wallet and signer
