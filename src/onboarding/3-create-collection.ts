@@ -35,7 +35,7 @@ const component = '[IMX-CREATE-COLLECTION]';
    * Edit your values here
    */
   const params: CreateCollectionParams = {
-    name: 'ENTER_COLLECTION_NAME',
+    name: 'Asset Test 🐉',
     // description: 'ENTER_COLLECTION_DESCRIPTION (OPTIONAL)',
     contract_address: collectionContractAddress,
     owner_public_key: ownerPublicKey,

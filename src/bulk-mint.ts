@@ -90,10 +90,6 @@ const waitForTransaction = async (promise: Promise<string>) => {
         recipient: env.royaltiesRecipient2,
         percentage: 11,
       },
-      {
-        recipient: env.royaltiesRecipient3,
-        percentage: 12,
-      },
     ]
   }));
 

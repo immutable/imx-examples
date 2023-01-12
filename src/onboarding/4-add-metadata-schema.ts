@@ -43,7 +43,7 @@ const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
   const params: AddMetadataSchemaToCollectionParams = {
     metadata: [
       {
-        name: 'EXAMPLE_BOOLEAN',
+        name: 'strength',
         type: MetadataTypes.Boolean,
         filterable: true,
       },

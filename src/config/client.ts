@@ -21,5 +21,4 @@ export default {
   collectionProjectId: getEnv('COLLECTION_PROJECT_ID'),
   royaltiesRecipient1: getEnv('ROYALTIES_RECIPIENT_01'),
   royaltiesRecipient2: getEnv('ROYALTIES_RECIPIENT_02'),
-  royaltiesRecipient3: getEnv('ROYALTIES_RECIPIENT_03'),
 };

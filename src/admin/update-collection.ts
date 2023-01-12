@@ -33,7 +33,9 @@ const component = '[IMX-UPDATE-COLLECTION]';
    * Edit your values here
    */
   const params: UpdateCollectionParams = {
-    name: 'ENTER_UPDATED_COLLECTION_NAME_HERE',
+    description: 'Asset Indexer testing...',
+    collection_image_url: 'https://images.unsplash.com/photo-1614732414444-096e5f1122d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
+    metadata_api_url: 'https://metadata-generator.dev.x.immutable.com/v1/metadata/0x11c61e1081ad11acd0c8c1c9705dfd3902af1767'
   };
 
   let collection;

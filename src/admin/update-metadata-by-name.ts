@@ -49,7 +49,7 @@ const component = '[IMX-UPDATE-COLLECTION-METADATA-SCHEMA]';
    * Edit your values here
    */
   const params: UpdateMetadataSchemaByNameParams = {
-    name: 'UPDATED_NAME',
+    name: 'background',
     // type: MetadataTypes.Text,
     // filterable: true,
   };
