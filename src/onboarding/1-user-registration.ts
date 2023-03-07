@@ -31,7 +31,7 @@ const component = '[IMX-USER-REGISTRATION]';
     });
   } catch {
     try {
-      // If user doesnt exist, create user
+      // If user doesn't exist, create user
       newUser = await user.registerImx({
         etherKey: user.address,
         starkPublicKey: user.starkPublicKey,
