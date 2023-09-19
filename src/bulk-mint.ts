@@ -58,9 +58,9 @@ const waitForTransaction = async (promise: Promise<string>) => {
   });
 
   const accounts = await minter.getUser({
-    user: minter.address
+    user: minter.address,
   });
-  if(accounts.accounts.length === 0) {
+  if (accounts.accounts.length === 0) {
     log.info(component, 'MINTER REGISTRATION');
     const registerImxResult = await minter.registerImx({
       etherKey: minter.address.toLowerCase(),
