@@ -57,17 +57,22 @@ const waitForTransaction = async (promise: Promise<string>) => {
     signer: new Wallet(env.privateKey1).connect(provider),
   });
 
-  log.info(component, 'MINTER REGISTRATION');
-  const registerImxResult = await minter.registerImx({
-    etherKey: minter.address.toLowerCase(),
-    starkPublicKey: minter.starkPublicKey,
+  const accounts = await minter.getUser({
+    user: minter.address,
   });
+  if (accounts.accounts.length === 0) {
+    log.info(component, 'MINTER REGISTRATION');
+    const registerImxResult = await minter.registerImx({
+      etherKey: minter.address.toLowerCase(),
+      starkPublicKey: minter.starkPublicKey,
+    });
 
-  if (registerImxResult.tx_hash === '') {
-    log.info(component, 'Minter registered, continuing...');
-  } else {
-    log.info(component, 'Waiting for minter registration...');
-    await waitForTransaction(Promise.resolve(registerImxResult.tx_hash));
+    if (registerImxResult.tx_hash === '') {
+      log.info(component, 'Minter registered, continuing...');
+    } else {
+      log.info(component, 'Waiting for minter registration...');
+      await waitForTransaction(Promise.resolve(registerImxResult.tx_hash));
+    }
   }
 
   log.info(component, `OFF-CHAIN MINT ${number} NFTS`);
