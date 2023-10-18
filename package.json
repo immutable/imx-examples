@@ -58,7 +58,7 @@
     "@ethersproject/strings": "^5.0.5",
     "@ethersproject/wallet": "^5.0.7",
     "@imtbl/imlogging": "^1.0.33",
-    "@imtbl/imx-sdk": "^1.28.0",
+    "@imtbl/imx-sdk": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.28.0",
     "axios": "^0.21.2",
