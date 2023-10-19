@@ -1,7 +1,7 @@
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import { ImmutableMethodParams, ImmutableXClient } from '@imtbl/imx-sdk';
 
-import env from '../config/client';
+import { env } from '../config/client';
 import { loggerConfig } from '../config/logging';
 
 const log: ImLogger = new WinstonLogger(loggerConfig);

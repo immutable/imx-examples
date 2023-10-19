@@ -44,5 +44,6 @@ module.exports = {
     'no-async-promise-executor': 'off',
     'no-restricted-properties': 'off',
     'import/no-cycle': 'off',
+    'prefer-destructuring': ["error", { "object": true, "array": false }],
   },
 };

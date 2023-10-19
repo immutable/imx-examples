@@ -1,52 +1,104 @@
-import { AlchemyProvider } from '@ethersproject/providers';
-import { Wallet } from '@ethersproject/wallet';
+import {
+  createStarkSigner,
+  generateLegacyStarkPrivateKey,
+  generateStarkPrivateKey,
+} from '@imtbl/core-sdk';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { ImmutableXClient } from '@imtbl/imx-sdk';
-import { requireEnvironmentVariable } from 'libs/utils';
+import { parse } from 'ts-command-line-args';
 
-import env from '../config/client';
+import { createIMXClient, getEthWalletAndSigner } from '../config/client';
 import { loggerConfig } from '../config/logging';
 
-const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
 const component = '[IMX-USER-REGISTRATION]';
 
-(async (): Promise<void> => {
-  const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
+interface StarkKeyType {
+  starkKeyType: string;
+}
 
-  const user = await ImmutableXClient.build({
-    ...env.client,
-    signer: new Wallet(privateKey).connect(provider),
+// Initialize ImmutableX client
+const client = createIMXClient();
+
+(async (): Promise<void> => {
+  // Get user input for type of Stark key to generate
+  const { starkKeyType } = parse<StarkKeyType>({
+    starkKeyType: {
+      type: String,
+      alias: 's',
+      description: "Stark key type: 'random' (default: 'deterministic')",
+    },
   });
 
-  log.info(component, 'Registering user...');
+  // Check that value entered is exactly 'random'
+  if (starkKeyType !== 'random') {
+    const text =
+      "Enter 'random' or do not use '-s' flag.\n\n" +
+      'To generate a non-deterministic Stark key (more secure, recommended for ' +
+      'collection owners): `npm run onboarding:user-registration -- -s random`\n' +
+      '***NOTE*** You must persist and store this key securely as it cannot be ' +
+      'regenerated for you.\n\n' +
+      'To generate a deterministic Stark key: `npm run onboarding:user-registration`\n';
 
-  let existingUser;
-  let newUser;
+    console.log(text);
+    return;
+  }
+
+  // Create Ethereum signer
+  const { ethSigner } = getEthWalletAndSigner();
+
+  // Check if user already exists
+  let starkPublicKey;
+  let starkPrivateKey;
+
   try {
-    // Fetching existing user
-    existingUser = await user.getUser({
-      user: user.address,
-    });
+    const existingUser = await client.getUser(ethSigner.address);
+    starkPublicKey = existingUser.accounts[0];
+
+    const message =
+      `This user is already registered.\nEthereum (L1) public key: ${ethSigner.address}` +
+      `\nStark (L2) public key: ${starkPublicKey}`;
+
+    console.log(message);
+    return;
   } catch {
+    // If user doesn't exist, register user
     try {
-      // If user doesnt exist, create user
-      newUser = await user.registerImx({
-        etherKey: user.address,
-        starkPublicKey: user.starkPublicKey,
-      });
+      log.info(component, 'Registering user...');
+
+      // Generate Stark private key
+      if (starkKeyType === 'random') {
+        starkPrivateKey = generateStarkPrivateKey();
+      } else {
+        starkPrivateKey = await generateLegacyStarkPrivateKey(ethSigner);
+      }
+
+      // Create Stark signer
+      const starkSigner = createStarkSigner(starkPrivateKey);
+
+      // Register user
+      await client.registerOffchain({ ethSigner, starkSigner });
+
+      // Get registered user Stark key
+      const registeredUser = await client.getUser(ethSigner.address);
+      starkPublicKey = registeredUser.accounts[0];
     } catch (error) {
       throw new Error(JSON.stringify(error, null, 2));
     }
   }
 
-  if (existingUser) {
-    log.info(component, 'User already exists', user.address);
-  } else {
-    log.info(component, 'User has been created', user.address);
+  // Return details about the user created
+  console.log('User has been registered.');
+  console.log(`Ethereum (L1) public key: ${ethSigner.address}`);
+  console.log(`Stark (L2) public key: ${starkPublicKey}`);
+
+  if (starkKeyType === 'random') {
+    const message =
+      `Stark (L2) private key: ${starkPrivateKey}\n` +
+      '***NOTE*** You must persist and store this key securely as it cannot be ' +
+      'regenerated for you.';
+    console.log(message);
   }
-  console.log(JSON.stringify({ newUser, existingUser }, null, 2));
 })().catch(e => {
   log.error(component, e);
   process.exit(1);
