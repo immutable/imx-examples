@@ -19,7 +19,7 @@
     "lint:eslint": "eslint --ext .ts,.js .",
     "lint:eslint:fix": "eslint --ext .ts,.js --fix .",
     "typecheck": "tsc --noEmit",
-    "bulk-mint": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/bulk-mint.ts",
+    "bulk-mint": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/bulk-mint.ts --wallet=0xB53ac0FAC15E57616FbA1047ca3Ab83cd37dCB50 --number=10",
     "yalc:link": "yalc link @imtbl/imx-sdk",
     "onboarding:user-registration": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/1-user-registration.ts",
     "onboarding:create-project": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/2-create-project.ts",
@@ -36,7 +36,7 @@
   },
   "engines": {
     "npm": ">=6.x.x",
-    "node": "^12 || ^14"
+    "node": "^12 || ^14 || ^16"
   },
   "keywords": [
     "Immutable",
@@ -58,7 +58,7 @@
     "@ethersproject/strings": "^5.0.5",
     "@ethersproject/wallet": "^5.0.7",
     "@imtbl/imlogging": "^1.0.33",
-    "@imtbl/imx-sdk": "^1.28.0",
+    "@imtbl/imx-sdk": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.28.0",
     "axios": "^0.21.2",
