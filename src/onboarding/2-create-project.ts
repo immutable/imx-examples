@@ -30,7 +30,7 @@ const component = '[IMX-CREATE-PROJECT]';
   const params: CreateProjectParams = {
     name: 'YOUR_COLLECTION_NAME',
     company_name: 'YOUR_COMPANY_NAME',
-    contact_email: 'your-dev-hub-email@immutable.com',
+    contact_email: 'your-dev-hub-email@immutable.com', // https://hub.immutable.com/
   };
 
   let project;
