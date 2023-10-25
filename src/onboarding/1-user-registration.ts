@@ -1,13 +1,12 @@
-import { AlchemyProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import { ImmutableXClient } from '@imtbl/imx-sdk';
-import { requireEnvironmentVariable } from 'libs/utils';
+import { getProvider, requireEnvironmentVariable } from 'libs/utils';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
 
-const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
+const provider = getProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
 const component = '[IMX-USER-REGISTRATION]';
@@ -29,7 +28,7 @@ const component = '[IMX-USER-REGISTRATION]';
     existingUser = await user.getUser({
       user: user.address,
     });
-  } catch {
+  } catch (e) {
     try {
       // If user doesnt exist, create user
       newUser = await user.registerImx({
