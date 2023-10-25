@@ -1,13 +1,12 @@
-import { AlchemyProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import { CreateProjectParams, ImmutableXClient } from '@imtbl/imx-sdk';
-import { requireEnvironmentVariable } from 'libs/utils';
+import { getProvider, requireEnvironmentVariable } from 'libs/utils';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
 
-const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
+const provider = getProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
 const component = '[IMX-CREATE-PROJECT]';
@@ -29,9 +28,9 @@ const component = '[IMX-CREATE-PROJECT]';
    * Edit your values here
    */
   const params: CreateProjectParams = {
-    name: 'ENTER_PROJECT_NAME_HERE-2',
-    company_name: 'ENTER_COMPANY_NAME_HERE',
-    contact_email: 'contactemail@example.com',
+    name: 'Bryan to the moon',
+    company_name: 'Immutable Sandbox',
+    contact_email: 'bryan.dichtl@immutable.com',
   };
 
   let project;

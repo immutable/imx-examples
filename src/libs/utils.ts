@@ -1,3 +1,9 @@
+import {
+  AlchemyProvider,
+  JsonRpcProvider,
+  Networkish,
+} from '@ethersproject/providers';
+
 export function wait(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -34,4 +40,21 @@ export function validateString<T extends string>(
     throw Error(`${val} is not one of ${validValues}`);
   }
   return val as T;
+}
+
+export function getProvider(
+  network: string,
+  alchemyKey: string,
+): JsonRpcProvider {
+  if (network !== 'sepolia') {
+    return new AlchemyProvider(network, alchemyKey);
+  }
+
+  return new JsonRpcProvider(
+    `https://eth-sepolia.g.alchemy.com/v2/${alchemyKey}`,
+    {
+      name: 'sepolia',
+      chainId: 11155111,
+    },
+  );
 }

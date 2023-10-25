@@ -1,4 +1,3 @@
-import { AlchemyProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import {
@@ -6,12 +5,12 @@ import {
   ImmutableXClient,
   MetadataTypes,
 } from '@imtbl/imx-sdk';
-import { requireEnvironmentVariable } from 'libs/utils';
+import { getProvider, requireEnvironmentVariable } from 'libs/utils';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
 
-const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
+const provider = getProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
 const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
@@ -43,11 +42,15 @@ const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
   const params: AddMetadataSchemaToCollectionParams = {
     metadata: [
       {
-        name: 'EXAMPLE_BOOLEAN',
+        name: 'power',
+        type: MetadataTypes.Continuous,
+        filterable: true,
+      },
+      {
+        name: 'rare',
         type: MetadataTypes.Boolean,
         filterable: true,
       },
-      // ..add rest of schema here
     ],
   };
 

@@ -1,17 +1,16 @@
-import { AlchemyProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
 import {
   ImmutableXClient,
   UpdateMetadataSchemaByNameParams,
 } from '@imtbl/imx-sdk';
-import { requireEnvironmentVariable } from 'libs/utils';
+import { getProvider, requireEnvironmentVariable } from 'libs/utils';
 import { parse } from 'ts-command-line-args';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
 
-const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
+const provider = getProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 
 const component = '[IMX-UPDATE-COLLECTION-METADATA-SCHEMA]';
@@ -25,8 +24,8 @@ const component = '[IMX-UPDATE-COLLECTION-METADATA-SCHEMA]';
   const { name } = parse<{ name: string }>({
     name: {
       type: String,
-      alias: 'n',
-      description: 'Name of the metadata property you want to update',
+      alias: 'p',
+      description: 'Power',
     },
   });
 
@@ -49,7 +48,7 @@ const component = '[IMX-UPDATE-COLLECTION-METADATA-SCHEMA]';
    * Edit your values here
    */
   const params: UpdateMetadataSchemaByNameParams = {
-    name: 'UPDATED_NAME',
+    name: '100%',
     // type: MetadataTypes.Text,
     // filterable: true,
   };

@@ -1,33 +1,43 @@
-import { AlchemyProvider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { ImmutableXClient, ImmutableMethodParams } from '@imtbl/imx-sdk';
+import { ImmutableMethodParams, ImmutableXClient } from '@imtbl/imx-sdk';
 import { parse } from 'ts-command-line-args';
 
 import env from './config/client';
 import { loggerConfig } from './config/logging';
+import { getProvider } from './libs/utils';
 
 interface BulkMintScriptArgs {
   wallet: string;
   number: number;
 }
 
-const provider = new AlchemyProvider(env.ethNetwork, env.alchemyApiKey);
+const provider = getProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
 const component = 'imx-bulk-mint-script';
 
 const waitForTransaction = async (promise: Promise<string>) => {
   const txId = await promise;
-  log.info(component, 'Waiting for transaction', {
-    txId,
-    etherscanLink: `https://goerli.etherscan.io/tx/${txId}`,
-    alchemyLink: `https://dashboard.alchemyapi.io/mempool/eth-goerli/tx/${txId}`,
-  });
+
+  if (env.ethNetwork === 'mainnet') {
+    console.log(component, 'Waiting for transaction', {
+      txId,
+      etherscanLink: `https://etherscan.io/tx/${txId}`,
+      alchemyLink: `https://dashboard.alchemyapi.io/mempool/eth-mainnet/tx/${txId}`,
+    });
+  } else {
+    console.log(component, 'Waiting for transaction', {
+      txId,
+      etherscanLink: `https://${env.ethNetwork}.etherscan.io/tx/${txId}`,
+      alchemyLink: `https://dashboard.alchemyapi.io/mempool/eth-${env.ethNetwork}/tx/${txId}`,
+    });
+  }
+
   const receipt = await provider.waitForTransaction(txId);
   if (receipt.status === 0) {
     throw new Error('Transaction rejected');
   }
-  log.info(component, `Transaction Mined: ${receipt.blockNumber}`);
+  console.log(component, `Transaction Mined: ${receipt.blockNumber}`);
   return receipt;
 };
 
@@ -57,9 +67,21 @@ const waitForTransaction = async (promise: Promise<string>) => {
     signer: new Wallet(env.privateKey1).connect(provider),
   });
 
-  const accounts = await minter.getUser({
-    user: minter.address,
-  });
+  let accounts = {
+    accounts: [],
+  };
+
+  try {
+    // @ts-ignore
+    accounts = await minter.getUser({
+      user: minter.address,
+    });
+  } catch (e) {
+    log.info(component, 'Minter not registered, continuing...');
+  }
+
+  console.log('accounts', accounts);
+
   if (accounts.accounts.length === 0) {
     log.info(component, 'MINTER REGISTRATION');
     const registerImxResult = await minter.registerImx({
@@ -84,13 +106,19 @@ const waitForTransaction = async (promise: Promise<string>) => {
 
   const payload: ImmutableMethodParams.ImmutableOffchainMintV2ParamsTS = [
     {
-      contractAddress: env.tokenAddress, // NOTE: a mintable token contract is not the same as regular erc token contract
       users: [
         {
           etherKey: wallet.toLowerCase(),
           tokens,
         },
       ],
+      royalties: [
+        {
+          recipient: minter.address,
+          percentage: 2,
+        },
+      ],
+      contractAddress: env.tokenAddress,
     },
   ];
 
