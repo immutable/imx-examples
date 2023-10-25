@@ -19,7 +19,7 @@
     "lint:eslint": "eslint --ext .ts,.js .",
     "lint:eslint:fix": "eslint --ext .ts,.js --fix .",
     "typecheck": "tsc --noEmit",
-    "bulk-mint": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/bulk-mint.ts --wallet=0xB53ac0FAC15E57616FbA1047ca3Ab83cd37dCB50 --number=10",
+    "bulk-mint": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/bulk-mint.ts",
     "yalc:link": "yalc link @imtbl/imx-sdk",
     "onboarding:user-registration": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/1-user-registration.ts",
     "onboarding:create-project": "ts-node -r tsconfig-paths/register -r dotenv/config ./src/onboarding/2-create-project.ts",
