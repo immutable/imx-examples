@@ -28,9 +28,9 @@ const component = '[IMX-CREATE-PROJECT]';
    * Edit your values here
    */
   const params: CreateProjectParams = {
-    name: 'Bryan to the moon',
-    company_name: 'Immutable Sandbox',
-    contact_email: 'bryan.dichtl@immutable.com',
+    name: 'YOUR_COLLECTION_NAME',
+    company_name: 'YOUR_COMPANY_NAME',
+    contact_email: 'your-dev-hub-email@immutable.com',
   };
 
   let project;
