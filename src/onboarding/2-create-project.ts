@@ -12,7 +12,7 @@ const log: ImLogger = new WinstonLogger(loggerConfig);
 const component = '[IMX-CREATE-PROJECT]';
 
 (async (): Promise<void> => {
-  log.warn(component, 'Project registration via this repository will be deprecated on the 20th. In the future, please use https://hub.immutable.com to create new projects.')
+  log.warn(component, 'Project registration via this repository will be deprecated on the 20th of January, 2024. In the future, please use https://hub.immutable.com to create new projects.')
   const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
 
   const signer = new Wallet(privateKey).connect(provider);
