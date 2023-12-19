@@ -1,9 +1,5 @@
 import { Signer } from '@ethersproject/abstract-signer';
-import {
-  AlchemyProvider,
-  JsonRpcProvider,
-  Networkish,
-} from '@ethersproject/providers';
+import { AlchemyProvider, JsonRpcProvider } from '@ethersproject/providers';
 import BN from 'bn.js';
 import * as encUtils from 'enc-utils';
 
