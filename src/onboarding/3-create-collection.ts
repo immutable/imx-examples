@@ -1,8 +1,5 @@
-import { keccak256 } from '@ethersproject/keccak256';
-import { toUtf8Bytes } from '@ethersproject/strings';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { config, immutablexClient } from '@imtbl/sdk';
 import axios from 'axios';
 import {
   generateIMXAuthorisationHeaders,
