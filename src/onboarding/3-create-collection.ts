@@ -1,7 +1,15 @@
+import { keccak256 } from '@ethersproject/keccak256';
+import { toUtf8Bytes } from '@ethersproject/strings';
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { CreateCollectionParams, ImmutableXClient } from '@imtbl/imx-sdk';
-import { getProvider, requireEnvironmentVariable } from 'libs/utils';
+import { config, immutablexClient } from '@imtbl/sdk';
+import axios from 'axios';
+import {
+  generateIMXAuthorisationHeaders,
+  getEnv,
+  getProvider,
+  requireEnvironmentVariable,
+} from 'libs/utils';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
@@ -22,18 +30,16 @@ const component = '[IMX-CREATE-COLLECTION]';
   const signer = wallet.connect(provider);
   const ownerPublicKey = wallet.publicKey;
 
-  const user = await ImmutableXClient.build({
-    ...env.client,
-    signer,
-    enableDebug: true,
-  });
-
   log.info(component, 'Creating collection...', collectionContractAddress);
+  console.log(getEnv('API_KEY'));
 
-  /**
-   * Edit your values here
-   */
-  const params: CreateCollectionParams = {
+  const { timestamp, signature } = await generateIMXAuthorisationHeaders(
+    signer,
+  );
+  const createCollectionRequest = {
+    /**
+     * Edit your values here
+     */
     name: 'ENTER_COLLECTION_NAME',
     // description: 'ENTER_COLLECTION_DESCRIPTION (OPTIONAL)',
     contract_address: collectionContractAddress,
@@ -44,15 +50,27 @@ const component = '[IMX-CREATE-COLLECTION]';
     project_id: parseInt(projectId, 10),
   };
 
-  let collection;
-  try {
-    collection = await user.createCollection(params);
-  } catch (error) {
-    throw new Error(JSON.stringify(error, null, 2));
+  const headers: Record<string, string> = {
+    'Content-type': 'application/json',
+    'IMX-Signature': signature,
+    'IMX-Timestamp': timestamp,
+  };
+
+  const apiKey = getEnv('API_KEY');
+  if (apiKey) {
+    headers['x-immutable-api-key'] = apiKey;
   }
 
+  const resp = await axios.post(
+    `${getEnv('PUBLIC_API_URL')}/collections`,
+    createCollectionRequest,
+    {
+      headers,
+    },
+  );
+
   log.info(component, 'Created collection');
-  console.log(JSON.stringify(collection, null, 2));
+  console.log(JSON.stringify(resp.data, null, 2));
 })().catch(e => {
   log.error(component, e);
   process.exit(1);
