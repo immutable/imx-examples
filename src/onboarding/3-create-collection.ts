@@ -28,7 +28,6 @@ const component = '[IMX-CREATE-COLLECTION]';
   const ownerPublicKey = wallet.publicKey;
 
   log.info(component, 'Creating collection...', collectionContractAddress);
-  console.log(getEnv('API_KEY'));
 
   const { timestamp, signature } = await generateIMXAuthorisationHeaders(
     signer,
