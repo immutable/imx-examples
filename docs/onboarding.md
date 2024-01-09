@@ -20,6 +20,12 @@ Set the onboarding private key in `.env`. Your private key will be used to creat
 OWNER_ACCOUNT_PRIVATE_KEY=YOUR_PRIVATE_KEY
 ```
 
+Generate your API Key in the [Immutable Hub](https://hub.immutable.com/) by creating an Immutable X rollup project and an environment under that project if you do not have one already. Your collections will be created under that projects environment. Select the desired environment and click the API Keys side bar item. Generate a secret API Key from this page. This will be what you use for the `API_KEY=` value in the `.env` file.
+
+```sh
+API_KEY=YOUR_API_KEY
+```
+
 Install dependencies
 
 ```sh
@@ -80,6 +86,7 @@ _Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY`, `COLLECTION_PROJECT
 ```sh
 npm run onboarding:create-collection
 ```
+
 If you see a `replacement transaction underpriced` error message when trying to run `create-collection` please try again in 5 minutes.
 
 ## 4. Add metadata schema to your collection
