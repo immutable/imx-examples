@@ -20,7 +20,7 @@ Set the onboarding private key in `.env`. Your private key will be used to creat
 OWNER_ACCOUNT_PRIVATE_KEY=YOUR_PRIVATE_KEY
 ```
 
-Generate your API Key in the [Immutable Hub](https://hub.immutable.com/) by creating an Immutable X rollup project and an environment under that project if you do not have one already. Your collections will be created under that projects environment. Select the desired environment and click the API Keys side bar item. Generate a secret API Key from this page. This will be what you use for the `API_KEY=` value in the `.env` file.
+You can create and manage your keys in the [Immutable Hub](https://hub.immutable.com/). The Immutable Hub serves as a portal for creating, displaying, and refreshing API keys. Navigate to the "API Keys" menu item within your chosen project and environment to manage your API keys.
 
 ```sh
 API_KEY=YOUR_API_KEY
