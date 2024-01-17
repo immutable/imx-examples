@@ -22,6 +22,7 @@ const component = '[IMX-CREATE-COLLECTION]';
     'COLLECTION_CONTRACT_ADDRESS',
   );
   const projectId = requireEnvironmentVariable('COLLECTION_PROJECT_ID');
+  const apiKey = requireEnvironmentVariable('API_KEY');
 
   const wallet = new Wallet(privateKey);
   const signer = wallet.connect(provider);
@@ -50,12 +51,8 @@ const component = '[IMX-CREATE-COLLECTION]';
     'Content-type': 'application/json',
     'IMX-Signature': signature,
     'IMX-Timestamp': timestamp,
+    'x-immutable-api-key': apiKey,
   };
-
-  const apiKey = getEnv('API_KEY');
-  if (apiKey) {
-    headers['x-immutable-api-key'] = apiKey;
-  }
 
   const resp = await axios.post(
     `${getEnv('PUBLIC_API_URL')}/collections`,
