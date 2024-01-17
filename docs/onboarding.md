@@ -54,21 +54,7 @@ npm run onboarding:user-registration
 
 ## 2. Create project
 
-Update the values in file `2-create-project.ts` with the values of the project you want to create.
-
-- `name` - _The name of the project_
-- `company_name` - _The name of the company_
-- `contact_email` - _Your associated company email_
-
-Once updated, run the following script to create your project:
-
-_Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY` to be set._
-
-```sh
-npm run onboarding:create-project
-```
-
-On completion, the script will log the ID of the created project. Save this ID for use in the next step.
+Follow the guide at [here](https://docs.immutable.com/docs/x/launch-collection/register-project) to create a project in the [Immutable Hub](https://hub.immutable.com).
 
 ## 3. Add a collection
 
@@ -77,11 +63,17 @@ you must first register your collection (smart contract) with Immutable X.
 
 Add the collection contract address to the environment variable `COLLECTION_CONTRACT_ADDRESS`.
 
-Set `COLLECTION_PROJECT_ID` to the project ID you created with `create-project` step
+Set `COLLECTION_PROJECT_ID` to the legacy ID in your created environment's overview page from step 2.
+
+![Environment legacy ID](./img/legacy-id.png)
+
+Generate an API key in Hub and set the `API_KEY` to the generated value.
+
+![Api Key](./img/api-key.png)
 
 Once updated, run the following script to create your collection:
 
-_Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY`, `COLLECTION_PROJECT_ID` and `COLLECTION_CONTRACT_ADDRESS` to be set._
+_Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY`, `COLLECTION_PROJECT_ID`, `API_KEY` and `COLLECTION_CONTRACT_ADDRESS` to be set._
 
 ```sh
 npm run onboarding:create-collection
