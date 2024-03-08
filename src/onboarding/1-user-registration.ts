@@ -1,10 +1,10 @@
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import { ImmutableXClient } from '@imtbl/imx-sdk';
-import { getProvider, requireEnvironmentVariable } from 'libs/utils';
+import { config, x } from '@imtbl/sdk';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
+import { getProvider, requireEnvironmentVariable } from '../libs/utils';
 
 const provider = getProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
@@ -14,38 +14,49 @@ const component = '[IMX-USER-REGISTRATION]';
 (async (): Promise<void> => {
   const privateKey = requireEnvironmentVariable('OWNER_ACCOUNT_PRIVATE_KEY');
 
-  const user = await ImmutableXClient.build({
-    ...env.client,
-    signer: new Wallet(privateKey).connect(provider),
-  });
+  const { Environment } = config;
+  const {
+    createStarkSigner,
+    GenericIMXProvider,
+    IMXClient,
+    imxClientConfig,
+    ProviderConfiguration,
+    generateLegacyStarkPrivateKey,
+  } = x;
 
   log.info(component, 'Registering user...');
 
-  let existingUser;
-  let newUser;
-  try {
-    // Fetching existing user
-    existingUser = await user.getUser({
-      user: user.address,
-    });
-  } catch (e) {
-    try {
-      // If user doesnt exist, create user
-      newUser = await user.registerImx({
-        etherKey: user.address,
-        starkPublicKey: user.starkPublicKey,
-      });
-    } catch (error) {
-      throw new Error(JSON.stringify(error, null, 2));
-    }
+  const environment = Environment.SANDBOX;
+  const ethSigner = new Wallet(privateKey).connect(provider);
+  const starkPrivateKey = await generateLegacyStarkPrivateKey(ethSigner);
+  const starkSigner = createStarkSigner(starkPrivateKey);
+
+  const imxProviderConfig = new ProviderConfiguration({
+    baseConfig: {
+      environment,
+    },
+  });
+  const imxProvider = new GenericIMXProvider(
+    imxProviderConfig,
+    ethSigner,
+    starkSigner,
+  );
+  const userAddress = await imxProvider.getAddress();
+
+  const imxClient = new IMXClient(imxClientConfig({ environment }));
+
+  const isRegisteredOffChain = await imxProvider.isRegisteredOffchain();
+
+  if (isRegisteredOffChain) {
+    const { accounts } = await imxClient.getUser(userAddress);
+    log.info(component, `User already exists off chain (L2): ${accounts}`);
+  } else {
+    await imxProvider.registerOffchain();
+    const { accounts } = await imxClient.getUser(userAddress);
+    log.info(component, `User has been created off chain (L2): ${accounts}`);
   }
 
-  if (existingUser) {
-    log.info(component, 'User already exists', user.address);
-  } else {
-    log.info(component, 'User has been created', user.address);
-  }
-  console.log(JSON.stringify({ newUser, existingUser }, null, 2));
+  process.exit(0);
 })().catch(e => {
   log.error(component, e);
   process.exit(1);

@@ -56,6 +56,8 @@ npm run onboarding:user-registration
 
 Follow the guide at [here](https://docs.immutable.com/docs/x/launch-collection/register-project) to create a project in the [Immutable Hub](https://hub.immutable.com).
 
+- Ensure you create a project for the **`Immutable X`** rollup.
+
 ## 3. Add a collection
 
 A collection refers to a smart contract you have deployed. Minted assets belong to a collection. In order to mint assets on L2
@@ -81,9 +83,19 @@ npm run onboarding:create-collection
 
 If you see a `replacement transaction underpriced` error message when trying to run `create-collection` please try again in 5 minutes.
 
+There is a convenience script to get the info of the newly created collection:
+
+```sh
+npm run public:get-collection-info
+```
+
+The collection should also be visible in the [Immutable Hub](https://hub.immutable.com).
+
 ## 4. Add metadata schema to your collection
 
-Update the values in file `4-add-metadata-schema.ts` with the values of the metadata you want to define.
+Update the `4-add-metadata-schema.ts` file with the metadata schema values you want to define. The metadata schema is used to define the structure of the metadata that will be associated with the NFTs in your collection.
+
+Descriptions of the metadata schema fields can be found [here](https://docs.immutable.com/docs/x/launch-collection/register-metadata-schema#metadata-schema).
 
 Once updated, run the following script to create your collection:
 
@@ -91,4 +103,30 @@ _Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY` and `COLLECTION_CONT
 
 ```sh
 npm run onboarding:add-metadata-schema
+```
+
+If you want to add additional metadata schemas, you can do so by adding more objects to the `metadata` array, and remove any existing metadata schemas from the `metadata` array, and then run the script again.
+
+If you want to change the properties of an existing field, you can use the `updateMetadataSchemaByName` function instead. There is an example of this in the `4-add-metadata-schema.ts` file.
+
+## 5. Mint NFTs
+
+There is an minting example script, `5-mint-nfts.ts`, which is used to mint example NFTs to a wallet.
+
+The default behaviour is to mint the NFTs to the wallet that owns the `OWNER_ACCOUNT_PRIVATE_KEY`. If you want to mint the NFTs to a different wallet, you can uncomment and update the `mintRecipient` value passed to the `mint` function in the script.
+
+Also take a look at the example token objects in `tokens` array and update the blueprint values to your liking.
+
+For a deeper explanation of the blueprint string, see the [Deep dive into metadata section] in the Immutable X documentation(https://docs.immutable.com/docs/x/deep-dive-metadata#providing-a-blueprint-string-when-token-is-minted-on-l2).
+
+_Requires environment variables `OWNER_ACCOUNT_PRIVATE_KEY` and `COLLECTION_CONTRACT_ADDRESS` to be set._
+
+```sh
+npm run onboarding:mint
+```
+
+Once the NFTs have been minted, you can run the following script to get the info of the minted NFTs in the collection:
+
+```sh
+npm run public:get-assets-info
 ```
