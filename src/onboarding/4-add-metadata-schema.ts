@@ -38,15 +38,32 @@ const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
    */
   const metadata: x.MetadataSchemaRequest[] = [
     {
-      name: 'power',
-      type: x.MetadataSchemaRequestTypeEnum.Continuous,
-      filterable: true,
+      name :  'name',
+      type :  x.MetadataSchemaRequestTypeEnum.Text,
     },
     {
-      name: 'rare',
-      type: x.MetadataSchemaRequestTypeEnum.Boolean,
-      filterable: true,
+      name :  'description',
+      type :  x.MetadataSchemaRequestTypeEnum.Text,
     },
+    {
+      name :  'image_url',
+      type :  x.MetadataSchemaRequestTypeEnum.Text,
+    },
+    {
+      name :  'attack',
+      type :  x.MetadataSchemaRequestTypeEnum.Continuous,
+      filterable : true
+    },
+    {
+      name :  'collectable',
+      type :  x.MetadataSchemaRequestTypeEnum.Boolean,
+      filterable : true
+    },
+    {
+      name : 'class',
+      type :  x.MetadataSchemaRequestTypeEnum.Enum,
+      filterable : true
+    }
   ];
 
   const params: x.AddMetadataSchemaToCollectionRequest = { metadata };
@@ -58,16 +75,16 @@ const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
   );
 
   // /**
-  //  * If you want to update a metadata schema by name, use this instead of the above method
-  //  * This will update the metadata schema with the name 'power' to have the name 'attack' instead
+  //  * If you want to update a metadata schema by name, use this instead of the method above
+  //  * This will update the metadata schema with the name 'attack' to have the name 'power' instead
   //  */
   // const metadataResponse = await imxClient.updateMetadataSchemaByName(
   //   ethSigner,
   //   collectionContractAddress,
-  //   'power',
+  //   'attack',
   //   {
-  //     name: 'attack',
-  //     type: x.MetadataSchemaRequestTypeEnum.Continuous,
+  //     name: 'power',
+  //     type: x.MetadataSchemaRequestTypeEnum.Discrete,
   //     filterable: false,
   //   },
   // );
