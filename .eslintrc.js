@@ -9,7 +9,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.eslint.json',
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'simple-import-sort', 'import'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'airbnb-typescript/base',
