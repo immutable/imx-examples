@@ -38,32 +38,32 @@ const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
    */
   const metadata: x.MetadataSchemaRequest[] = [
     {
-      name :  'name',
-      type :  x.MetadataSchemaRequestTypeEnum.Text,
+      name: 'name',
+      type: x.MetadataSchemaRequestTypeEnum.Text,
     },
     {
-      name :  'description',
-      type :  x.MetadataSchemaRequestTypeEnum.Text,
+      name: 'description',
+      type: x.MetadataSchemaRequestTypeEnum.Text,
     },
     {
-      name :  'image_url',
-      type :  x.MetadataSchemaRequestTypeEnum.Text,
+      name: 'image_url',
+      type: x.MetadataSchemaRequestTypeEnum.Text,
     },
     {
-      name :  'attack',
-      type :  x.MetadataSchemaRequestTypeEnum.Continuous,
-      filterable : true
+      name: 'attack',
+      type: x.MetadataSchemaRequestTypeEnum.Continuous,
+      filterable: true,
     },
     {
-      name :  'collectable',
-      type :  x.MetadataSchemaRequestTypeEnum.Boolean,
-      filterable : true
+      name: 'collectable',
+      type: x.MetadataSchemaRequestTypeEnum.Boolean,
+      filterable: true,
     },
     {
-      name : 'class',
-      type :  x.MetadataSchemaRequestTypeEnum.Enum,
-      filterable : true
-    }
+      name: 'class',
+      type: x.MetadataSchemaRequestTypeEnum.Enum,
+      filterable: true,
+    },
   ];
 
   const params: x.AddMetadataSchemaToCollectionRequest = { metadata };
