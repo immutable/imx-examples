@@ -1,14 +1,10 @@
 import { Wallet } from '@ethersproject/wallet';
 import { ImLogger, WinstonLogger } from '@imtbl/imlogging';
-import {
-  AddMetadataSchemaToCollectionParams,
-  ImmutableXClient,
-  MetadataTypes,
-} from '@imtbl/imx-sdk';
-import { getProvider, requireEnvironmentVariable } from 'libs/utils';
+import { config, x } from '@imtbl/sdk';
 
 import env from '../config/client';
 import { loggerConfig } from '../config/logging';
+import { getProvider, requireEnvironmentVariable } from '../libs/utils';
 
 const provider = getProvider(env.ethNetwork, env.alchemyApiKey);
 const log: ImLogger = new WinstonLogger(loggerConfig);
@@ -21,50 +17,82 @@ const component = '[IMX-ADD-COLLECTION-METADATA-SCHEMA]';
     'COLLECTION_CONTRACT_ADDRESS',
   );
 
-  const wallet = new Wallet(privateKey);
-  const signer = wallet.connect(provider);
-
-  const user = await ImmutableXClient.build({
-    ...env.client,
-    signer,
-    enableDebug: true,
-  });
+  const { Environment } = config;
+  const { IMXClient, imxClientConfig } = x;
 
   log.info(
     component,
-    'Adding metadata schema to collection',
+    `Adding metadata schema to collection ${collectionContractAddress}...`,
     collectionContractAddress,
   );
 
-  /**
-   * Edit your values here
-   */
-  const params: AddMetadataSchemaToCollectionParams = {
-    metadata: [
-      {
-        name: 'power',
-        type: MetadataTypes.Continuous,
-        filterable: true,
-      },
-      {
-        name: 'rare',
-        type: MetadataTypes.Boolean,
-        filterable: true,
-      },
-    ],
-  };
+  const environment = Environment.SANDBOX;
+  const ethSigner = new Wallet(privateKey).connect(provider);
+  const imxConfig = imxClientConfig({ environment });
+  const imxClient = new IMXClient(imxConfig);
 
-  const collection = await user.addMetadataSchemaToCollection(
+  /**
+   * Edit your metadata schema values below
+   * Info about the metadata schema types can be found here:
+   * https://docs.immutable.com/docs/x/launch-collection/register-metadata-schema#metadata-schema
+   */
+  const metadata: x.MetadataSchemaRequest[] = [
+    {
+      name: 'name',
+      type: x.MetadataSchemaRequestTypeEnum.Text,
+    },
+    {
+      name: 'description',
+      type: x.MetadataSchemaRequestTypeEnum.Text,
+    },
+    {
+      name: 'image_url',
+      type: x.MetadataSchemaRequestTypeEnum.Text,
+    },
+    {
+      name: 'attack',
+      type: x.MetadataSchemaRequestTypeEnum.Continuous,
+      filterable: true,
+    },
+    {
+      name: 'collectable',
+      type: x.MetadataSchemaRequestTypeEnum.Boolean,
+      filterable: true,
+    },
+    {
+      name: 'class',
+      type: x.MetadataSchemaRequestTypeEnum.Enum,
+      filterable: true,
+    },
+  ];
+
+  const params: x.AddMetadataSchemaToCollectionRequest = { metadata };
+
+  const metadataResponse = await imxClient.addMetadataSchemaToCollection(
+    ethSigner,
     collectionContractAddress,
     params,
   );
 
-  log.info(
-    component,
-    'Added metadata schema to collection',
-    collectionContractAddress,
-  );
-  console.log(JSON.stringify(collection, null, 2));
+  // /**
+  //  * If you want to update a metadata schema by name, use this instead of the method above
+  //  * This will update the metadata schema with the name 'attack' to have the name 'power' instead
+  //  */
+  // const metadataResponse = await imxClient.updateMetadataSchemaByName(
+  //   ethSigner,
+  //   collectionContractAddress,
+  //   'attack',
+  //   {
+  //     name: 'power',
+  //     type: x.MetadataSchemaRequestTypeEnum.Discrete,
+  //     filterable: false,
+  //   },
+  // );
+
+  log.info(component, 'Updated metadata schema', collectionContractAddress);
+  console.log(JSON.stringify(metadataResponse, null, 2));
+
+  process.exit(0);
 })().catch(e => {
   log.error(component, e);
   process.exit(1);

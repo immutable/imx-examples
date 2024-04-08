@@ -9,10 +9,9 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.eslint.json',
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort', 'fp-ts'],
+  plugins: ['@typescript-eslint', 'simple-import-sort', 'import'],
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:fp-ts/all',
     'airbnb-typescript/base',
     // @NOTE: Make sure this is always the last element in the array.
     'plugin:prettier/recommended',
