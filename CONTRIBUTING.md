@@ -16,7 +16,7 @@ This contributing guide will help you get started with the repository and start 
 * [Publish your changes](#publish-your-changes)
   * [Commit Conventions](#commit-conventions)
   * [Make a Pull Request](#make-a-pull-request)
-  * [Merge your Pull Request](#merge-your-pull-request)
+  * [Pull Request Review](#pull-request-review)
 
 ---
 
