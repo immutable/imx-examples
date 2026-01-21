@@ -53,7 +53,7 @@ npm install
 
 ## 1. Register as a user with Immutable X
 
-We provide an authentication service to protect your administrative level assets from being accessed or updated by someone else. This is done using a simliar technique as described [here](https://link.medium.com/CVTcj7YfQkb).
+We provide an authentication service to protect your administrative level assets from being accessed or updated by someone else. This is done using a similar technique as described [here](https://link.medium.com/CVTcj7YfQkb).
 
 In order to use services like creating a project or collection, you will first need to register as an Immutable X user. This is done by setting up an account using the private key from the wallet account you would like to specify as the owner of the project.
 
