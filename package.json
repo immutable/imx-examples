@@ -54,5 +54,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "overrides": {
+  "merkle-patricia-tree": {
+    "async": "^2.6.4"
   }
+}
 }
